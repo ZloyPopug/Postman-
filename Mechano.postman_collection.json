@@ -1,0 +1,294 @@
+{
+	"info": {
+		"_postman_id": "88038055-4aa9-4585-ae9f-b0613d544425",
+		"name": "Mechano",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "17532941"
+	},
+	"item": [
+		{
+			"name": "Записываем токен",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonDate = pm.response.json();\r",
+							"pm.environment.set(\"acces_token\",jsonDate.access_token)\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"username\": \"A_Septenal\",\r\n  \"password\": \"g5Im1L2K\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api-md.mel-meccano.ru/v1/auth/login",
+					"protocol": "https",
+					"host": [
+						"api-md",
+						"mel-meccano",
+						"ru"
+					],
+					"path": [
+						"v1",
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Получить список предметных областей",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{acces_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{urlMecano2}}/subject-area",
+					"host": [
+						"{{urlMecano2}}"
+					],
+					"path": [
+						"subject-area"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Создать новую предметную область",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonDate = pm.response.json();\r",
+							"pm.environment.set(\"idSubjectArea\", jsonDate.id)\r",
+							"pm.test(\"staus code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Your test name\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.have.property('name','Тестовая доменная зона');\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{acces_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": \"Лучший айди\",\r\n    \"name\": \"Тестовая доменная зона\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{urlMecano2}}/subject-area",
+					"host": [
+						"{{urlMecano2}}"
+					],
+					"path": [
+						"subject-area"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Редактировать доменную область",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Your test name\", function() {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.have.property('name', 'Отредактированная доменная зона');\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{acces_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": \"неважно\",\r\n    \"name\": \"Отредактированная доменная зона\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{urlMecano2}}/subject-area/{{idSubjectArea}}",
+					"host": [
+						"{{urlMecano2}}"
+					],
+					"path": [
+						"subject-area",
+						"{{idSubjectArea}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Проверка отредактированной доменной зоны",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Your test name\", function() {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.have.property('name', 'Отредактированная доменная зона');\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{acces_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{urlMecano2}}/subject-area/{{idSubjectArea}}",
+					"host": [
+						"{{urlMecano2}}"
+					],
+					"path": [
+						"subject-area",
+						"{{idSubjectArea}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Удаление предметной зоны",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 204\", function () {\r",
+							"    pm.response.to.have.status(204);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{acces_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{urlMecano2}}/subject-area/{{idSubjectArea}}",
+					"host": [
+						"{{urlMecano2}}"
+					],
+					"path": [
+						"subject-area",
+						"{{idSubjectArea}}"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
