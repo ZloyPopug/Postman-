@@ -1,7 +1,7 @@
 {
 	"info": {
 		"_postman_id": "88038055-4aa9-4585-ae9f-b0613d544425",
-		"name": "Mechano",
+		"name": "TEST",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "17532941"
 	},
@@ -28,7 +28,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"username\": \"A_Septenal\",\r\n  \"password\": \"g5Im1L2K\"\r\n}",
+					"raw": "{\r\n  \"username\": \"NAME\",\r\n  \"password\": \"PASSWORD\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -36,11 +36,11 @@
 					}
 				},
 				"url": {
-					"raw": "https://api-md.mel-meccano.ru/v1/auth/login",
+					"raw": "https://TEST/v1/auth/login",
 					"protocol": "https",
 					"host": [
-						"api-md",
-						"mel-meccano",
+						"TEST",
+						"TEST",
 						"ru"
 					],
 					"path": [
@@ -81,9 +81,9 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{urlMecano2}}/subject-area",
+					"raw": "{{urlTEST2}}/subject-area",
 					"host": [
-						"{{urlMecano2}}"
+						"{{urlTEST2}}"
 					],
 					"path": [
 						"subject-area"
@@ -237,9 +237,9 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{urlMecano2}}/subject-area/{{idSubjectArea}}",
+					"raw": "{{urlTEST}}/subject-area/{{idSubjectArea}}",
 					"host": [
-						"{{urlMecano2}}"
+						"{{urlTEST}}"
 					],
 					"path": [
 						"subject-area",
@@ -278,9 +278,9 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "{{urlMecano2}}/subject-area/{{idSubjectArea}}",
+					"raw": "{{urlTEST}}/subject-area/{{idSubjectArea}}",
 					"host": [
-						"{{urlMecano2}}"
+						"{{urlTEST}}"
 					],
 					"path": [
 						"subject-area",
